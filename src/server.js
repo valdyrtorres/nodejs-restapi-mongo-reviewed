@@ -5,7 +5,7 @@ const fs = require('fs')
 
 // import library and files
 const swaggerUi = require('swagger-ui-express');
-const swaggerDocument = require('./swagger.json');
+const swaggerDocument = require('../swagger.json');
 const customCss = fs.readFileSync((process.cwd()+"/swagger.css"), 'utf8');
 
 const taskController = require('./controller/task.controller')
