@@ -1,15 +1,21 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 require('dotenv').config()
+const fs = require('fs')
+
+// import library and files
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+const customCss = fs.readFileSync((process.cwd()+"/swagger.css"), 'utf8');
 
 const taskController = require('./controller/task.controller')
-
-
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
+// let express to use this
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, {customCss}));
 
 app.get('/api/tasks', (req, res) => {
     taskController.getTasks().then(data => res.json(data));
